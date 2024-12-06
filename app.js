@@ -26,6 +26,17 @@ serve.get("/api", (req, res) => {
      res.json(s.val());
   })
 })
+serve.get("/api/*", (req, res) => {
+  const id = req.params['0'];
+  const surl = ref(database, id);
+  onValue(surl, (s) => {
+    if(s.exists()){
+      res.json(s.val());
+    } else {
+      res.json({"Error": "Incorrect path!"})
+    }
+  })
+})
 serve.post("/api", (req, res) => {
   const { webRef, data } = req.body;
   const id = push(child(ref(database, webRef), webRef)).key;
