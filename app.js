@@ -26,6 +26,9 @@ serve.get("/api", (req, res) => {
      res.json(s.val());
   })
 })
+serve.get("/", (res, req) => {
+  req.json({response: true});
+})
 serve.get("/api/*", (req, res) => {
   const id = req.params['0'];
   const surl = ref(database, id);
